@@ -3,82 +3,935 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
+
+    <title>FinTrack - Personal Finance Manager</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="app">
 
-        <header>
-            <h1>Expense Tracker</h1>
-            <p>Track your income and expenses easily.</p>
-        </header>
+        <!-- SIDEBAR -->
 
-        <section class="balance-card">
-            <h3>Current Balance</h3>
-            <h2 id="balance">₹0.00</h2>
-        </section>
+        <aside class="sidebar" id="sidebar">
 
-        <section class="summary">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
 
-            <div class="summary-box income">
-                <h3>Income</h3>
-                <p id="income">₹0.00</p>
+                <div>
+                    <h2>FinTrack</h2>
+                    <span>Personal Finance</span>
+                </div>
             </div>
 
-            <div class="summary-box expense">
-                <h3>Expenses</h3>
-                <p id="expense">₹0.00</p>
+            <nav class="navigation">
+
+                <button class="nav-item active" data-page="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-item" data-page="transactions">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <span>Transactions</span>
+                </button>
+
+                <button class="nav-item" data-page="analytics">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Analytics</span>
+                </button>
+
+                <button class="nav-item" data-page="budget">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span>Budget Planner</span>
+                </button>
+
+                <button class="nav-item" data-page="settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="tip-card">
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    <div>
+                        <strong>Money Tip</strong>
+                        <p>Track every expense to understand your spending habits.</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <span>FinTrack v1.0</span>
+                </div>
+
             </div>
 
-        </section>
+        </aside>
 
-        <section class="form-section">
 
-            <h2>Add Transaction</h2>
+        <!-- MAIN CONTENT -->
+
+        <main class="main">
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="page-title">
+
+                    <span id="currentDate"></span>
+
+                    <h1 id="pageHeading">Dashboard</h1>
+
+                </div>
+
+                <div class="top-actions">
+
+                    <button class="icon-btn" id="themeBtn" title="Toggle theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <button class="add-btn" id="openModal">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Transaction
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTAINER -->
+
+            <div class="content">
+
+
+                <!-- ================= DASHBOARD ================= -->
+
+                <section class="page active-page" id="dashboard">
+
+                    <div class="welcome">
+
+                        <div>
+                            <p class="eyebrow">YOUR FINANCIAL OVERVIEW</p>
+
+                            <h2>Welcome back! 👋</h2>
+
+                            <p>
+                                Keep track of your money and make smarter financial decisions.
+                            </p>
+                        </div>
+
+                        <button class="outline-btn" data-go="transactions">
+                            View Transactions
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+
+                    <!-- STAT CARDS -->
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card balance-card">
+
+                            <div class="stat-top">
+                                <span>Total Balance</span>
+
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-wallet"></i>
+                                </div>
+                            </div>
+
+                            <h2 id="dashboardBalance">₹0.00</h2>
+
+                            <span class="stat-note">
+                                Available balance
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Total Income</span>
+
+                                <div class="stat-icon income-icon">
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                </div>
+                            </div>
+
+                            <h2 id="dashboardIncome">₹0.00</h2>
+
+                            <span class="stat-note positive">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Money received
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Total Expenses</span>
+
+                                <div class="stat-icon expense-icon">
+                                    <i class="fa-solid fa-arrow-trend-down"></i>
+                                </div>
+                            </div>
+
+                            <h2 id="dashboardExpense">₹0.00</h2>
+
+                            <span class="stat-note negative">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Money spent
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+                                <span>Transactions</span>
+
+                                <div class="stat-icon transaction-icon">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                            </div>
+
+                            <h2 id="transactionCount">0</h2>
+
+                            <span class="stat-note">
+                                Total records
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DASHBOARD GRID -->
+
+                    <div class="dashboard-grid">
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Recent Transactions</h3>
+                                    <p>Your latest financial activity</p>
+                                </div>
+
+                                <button class="text-btn" data-go="transactions">
+                                    View all
+                                </button>
+
+                            </div>
+
+                            <div id="recentTransactions" class="transaction-list">
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Budget Overview</h3>
+                                    <p>Your spending progress</p>
+                                </div>
+
+                                <button class="text-btn" data-go="budget">
+                                    Manage
+                                </button>
+
+                            </div>
+
+                            <div class="budget-overview">
+
+                                <div class="budget-circle">
+                                    <div>
+                                        <strong id="budgetPercentage">0%</strong>
+                                        <span>used</span>
+                                    </div>
+                                </div>
+
+                                <div class="budget-details">
+
+                                    <div>
+                                        <span>Spent</span>
+                                        <strong id="budgetSpent">₹0</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Budget</span>
+                                        <strong id="budgetTotal">₹0</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Remaining</span>
+                                        <strong id="budgetRemaining">₹0</strong>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CATEGORY SECTION -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Spending Categories</h3>
+                                <p>Where your money is going</p>
+                            </div>
+
+                            <button class="text-btn" data-go="analytics">
+                                Analytics
+                            </button>
+
+                        </div>
+
+                        <div id="categoryOverview" class="category-grid">
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= TRANSACTIONS ================= -->
+
+                <section class="page" id="transactions">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <p class="eyebrow">FINANCIAL RECORDS</p>
+                            <h2>Transactions</h2>
+                            <p>Manage all your income and expenses.</p>
+                        </div>
+
+                        <button class="add-btn" id="openModal2">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Transaction
+                        </button>
+
+                    </div>
+
+
+                    <div class="filter-bar">
+
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Search transactions..."
+                            >
+                        </div>
+
+                        <select id="typeFilter">
+                            <option value="all">All Types</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+
+                        <select id="categoryFilter">
+
+                            <option value="all">All Categories</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Education">Education</option>
+                            <option value="Health">Health</option>
+                            <option value="Other">Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="transactionTable">
+                                </tbody>
+
+                            </table>
+
+                            <div id="emptyTable" class="empty-state">
+
+                                <i class="fa-solid fa-receipt"></i>
+
+                                <h3>No transactions found</h3>
+
+                                <p>
+                                    Add your first transaction to start tracking your finances.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= ANALYTICS ================= -->
+
+                <section class="page" id="analytics">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <p class="eyebrow">INSIGHTS</p>
+                            <h2>Analytics</h2>
+                            <p>Understand your spending patterns.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics-grid">
+
+                        <div class="panel large-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Expense Breakdown</h3>
+                                    <p>Expenses by category</p>
+                                </div>
+
+                            </div>
+
+                            <div id="analyticsCategories" class="analytics-bars">
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Financial Summary</h3>
+                                    <p>Your overall performance</p>
+                                </div>
+
+                            </div>
+
+                            <div class="summary-list">
+
+                                <div>
+                                    <span>Total Income</span>
+                                    <strong id="analyticsIncome">₹0</strong>
+                                </div>
+
+                                <div>
+                                    <span>Total Expenses</span>
+                                    <strong id="analyticsExpense">₹0</strong>
+                                </div>
+
+                                <div>
+                                    <span>Net Savings</span>
+                                    <strong id="analyticsSavings">₹0</strong>
+                                </div>
+
+                                <div>
+                                    <span>Savings Rate</span>
+                                    <strong id="savingsRate">0%</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Monthly Activity</h3>
+                                <p>Income vs expenses</p>
+                            </div>
+
+                        </div>
+
+                        <div id="monthlyChart" class="monthly-chart">
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= BUDGET ================= -->
+
+                <section class="page" id="budget">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <p class="eyebrow">PLAN YOUR MONEY</p>
+                            <h2>Budget Planner</h2>
+                            <p>Set a spending limit and stay on track.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="budget-page-grid">
+
+                        <div class="panel budget-main">
+
+                            <div class="budget-header">
+
+                                <div>
+                                    <h3>Monthly Budget</h3>
+                                    <p>Set your preferred spending limit.</p>
+                                </div>
+
+                                <i class="fa-solid fa-bullseye"></i>
+
+                            </div>
+
+                            <div class="budget-input">
+
+                                <label>Monthly Budget</label>
+
+                                <div class="input-with-icon">
+                                    <span>₹</span>
+
+                                    <input
+                                        type="number"
+                                        id="budgetInput"
+                                        min="0"
+                                        placeholder="Enter budget amount"
+                                    >
+                                </div>
+
+                                <button class="primary-btn" id="saveBudget">
+                                    Save Budget
+                                </button>
+
+                            </div>
+
+
+                            <div class="big-progress">
+
+                                <div class="progress-info">
+
+                                    <span>Budget Usage</span>
+
+                                    <strong id="bigBudgetPercentage">0%</strong>
+
+                                </div>
+
+                                <div class="progress-track">
+
+                                    <div
+                                        class="progress-fill"
+                                        id="bigProgressFill"
+                                    ></div>
+
+                                </div>
+
+                                <div class="progress-labels">
+
+                                    <span id="bigBudgetSpent">₹0 spent</span>
+
+                                    <span id="bigBudgetRemaining">₹0 remaining</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <h3>Budget Tips</h3>
+                                    <p>Simple ways to save</p>
+                                </div>
+
+                            </div>
+
+                            <div class="tips-list">
+
+                                <div class="tip">
+                                    <span>01</span>
+                                    <p>Track small purchases because they add up quickly.</p>
+                                </div>
+
+                                <div class="tip">
+                                    <span>02</span>
+                                    <p>Review your categories every week.</p>
+                                </div>
+
+                                <div class="tip">
+                                    <span>03</span>
+                                    <p>Try to keep a portion of your income as savings.</p>
+                                </div>
+
+                                <div class="tip">
+                                    <span>04</span>
+                                    <p>Set realistic budgets that match your lifestyle.</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ================= SETTINGS ================= -->
+
+                <section class="page" id="settings">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <p class="eyebrow">PREFERENCES</p>
+                            <h2>Settings</h2>
+                            <p>Customize your FinTrack experience.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="settings-grid">
+
+                        <div class="panel">
+
+                            <div class="settings-title">
+                                <i class="fa-solid fa-palette"></i>
+
+                                <div>
+                                    <h3>Appearance</h3>
+                                    <p>Change how the application looks.</p>
+                                </div>
+                            </div>
+
+                            <div class="setting-row">
+
+                                <div>
+                                    <strong>Dark Mode</strong>
+                                    <span>Use a darker interface.</span>
+                                </div>
+
+                                <label class="switch">
+
+                                    <input
+                                        type="checkbox"
+                                        id="darkModeToggle"
+                                    >
+
+                                    <span class="slider"></span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="settings-title">
+
+                                <i class="fa-solid fa-database"></i>
+
+                                <div>
+                                    <h3>Data Management</h3>
+                                    <p>Manage your stored financial data.</p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="setting-actions">
+
+                                <button
+                                    class="secondary-btn"
+                                    id="exportData"
+                                >
+                                    <i class="fa-solid fa-download"></i>
+                                    Export Transactions
+                                </button>
+
+                                <button
+                                    class="danger-btn"
+                                    id="clearData"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                    Clear All Data
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel about-panel">
+
+                            <div class="settings-title">
+
+                                <i class="fa-solid fa-circle-info"></i>
+
+                                <div>
+                                    <h3>About FinTrack</h3>
+                                    <p>Personal finance management application.</p>
+                                </div>
+
+                            </div>
+
+                            <p class="about-text">
+                                FinTrack is a responsive personal finance dashboard
+                                designed to help users monitor income, expenses,
+                                budgets and spending patterns in one place.
+                            </p>
+
+                            <div class="tech-tags">
+
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                                <span>LocalStorage</span>
+                                <span>Responsive UI</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- ADD TRANSACTION MODAL -->
+
+    <div class="modal-overlay" id="modal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add Transaction</h2>
+                    <p>Record your income or expense.</p>
+                </div>
+
+                <button class="close-btn" id="closeModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
 
             <form id="transactionForm">
 
-                <input
-                    type="text"
-                    id="description"
-                    placeholder="Transaction description"
-                    required
-                >
+                <div class="form-group">
 
-                <input
-                    type="number"
-                    id="amount"
-                    placeholder="Amount"
-                    min="1"
-                    step="0.01"
-                    required
-                >
+                    <label>Description</label>
 
-                <select id="type">
-                    <option value="income">Income</option>
-                    <option value="expense">Expense</option>
-                </select>
+                    <input
+                        type="text"
+                        id="description"
+                        placeholder="e.g. Grocery shopping"
+                        required
+                    >
 
-                <button type="submit">Add Transaction</button>
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Amount</label>
+
+                        <div class="amount-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="amount"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="0.00"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Type</label>
+
+                        <select id="type" required>
+
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Category</label>
+
+                        <select id="category">
+
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Education">Education</option>
+                            <option value="Health">Health</option>
+                            <option value="Other">Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Date</label>
+
+                        <input
+                            type="date"
+                            id="date"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        id="cancelModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        Add Transaction
+                    </button>
+
+                </div>
 
             </form>
 
-        </section>
-
-        <section class="transactions">
-
-            <h2>Transaction History</h2>
-
-            <ul id="transactionList"></ul>
-
-            <p id="emptyMessage">No transactions yet.</p>
-
-        </section>
+        </div>
 
     </div>
+
+
+    <!-- TOAST -->
+
+    <div class="toast" id="toast">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span id="toastMessage">Transaction added!</span>
+
+    </div>
+
 
     <script src="script.js"></script>
 
